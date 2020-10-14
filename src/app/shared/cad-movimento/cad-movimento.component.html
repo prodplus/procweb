@@ -1,0 +1,60 @@
+<h3 class="text-center text-info">Nova Movimentação</h3>
+<div class="text-center mb-4">
+  <button class="btn botao-cabecalho btn-danger" (click)="cancelar()">
+    <fa-icon [icon]="iWindowClose"></fa-icon>
+  </button>
+</div>
+
+<form [formGroup]="movimentoForm" (submit)="salvar()">
+  <div class="form-group col-3">
+    <label for="inputDataM">Data:</label>
+    <input type="date" id="inputDataM" class="form-control" formControlName="data"
+        #inputInicio>
+    <small *ngIf="movimentoForm.get('data').hasError('required')" class="text-danger">
+      obrigatório
+    </small>
+  </div>
+  <div class="row col-12">
+    <div class="form-group col-4">
+      <label for="selectDe">De:</label>
+      <select id="selectDe" class="form-control" formControlName="de">
+        <option [ngValue]="null" disabled>selecione...</option>
+        <option *ngFor="let sit of situacoes" [value]="sit">{{ sit }}</option>
+      </select>
+      <small *ngIf="movimentoForm.get('de').hasError('required')" class="text-danger">
+        obrigatório
+      </small>
+    </div>
+    <div class="form-group col-4">
+      <label for="selectPara">Para:</label>
+      <select id="selectPara" class="form-control" formControlName="para">
+        <option [ngValue]="null" disabled>selecione...</option>
+        <option *ngFor="let sit of situacoes" [value]="sit">{{ sit }}</option>
+      </select>
+      <small *ngIf="movimentoForm.get('para').hasError('required')" class="text-danger">
+        obrigatório
+      </small>
+    </div>
+  </div>
+  <div class="form-group col-8">
+    <label for="inputAverbacao">Averbação:</label>
+    <input type="text" id="inputAverbação" class="form-control" formControlName="averbacao">
+  </div>
+  <div class="row col-12">
+    <div class="form-group col-3">
+      <label for="inputAuxD">Data Aux:</label>
+      <input type="date" id="inputAuxD" class="form-control" formControlName="auxD"
+          style="text-align: center;">
+    </div>
+    <div class="form-group col-3">
+      <label for="inputAuxT">Hora Aux:</label>
+      <input type="time" id="inputAuxT" class="form-control" formControlName="auxT"
+          style="text-align: center;">
+    </div>
+  </div>
+  <div class="text-center">
+    <button class="btn btn-success" [disabled]="movimentoForm.invalid" type="submit">
+      salvar
+    </button>
+  </div>
+</form>
