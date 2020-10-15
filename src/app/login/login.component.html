@@ -1,0 +1,44 @@
+<div class="text-center mt-xl-5" *ngIf="isLoading">
+  <app-spinner></app-spinner>
+</div>
+<div class="container mt-4 mb-lg-5" *ngIf="!isLoading">
+  <div class="row">
+    <div class="col-md-6 align-middle">
+      <div class="align-content-center text-center">
+        <a href="">
+          <img src="/assets/img/logo_procon.jpg" alt="procon" class="img-fluid logo"
+              title="página principal">
+        </a>
+      </div>
+    </div>
+    <div class="col-md-6 align-middle bg-dark border border-success rounded"
+        style="padding: 40px;">
+      <div class="card-header">
+        <h3 class="text-center text-success font-weight-bold">LOGIN</h3>
+      </div>
+      <form [formGroup]="loginForm" class="mt-4" (submit)="login()">
+        <div class="form-group">
+          <input type="text" #inputLogin formControlName="email" class="form-control"
+              placeholder="usuário" autofocus autocomplete="off">
+          <small *ngIf="loginForm.get('email').hasError('required')" class="text-danger">
+            campo obrigatório
+          </small>
+        </div>
+        <div class="form-group">
+          <input type="password" formControlName="password" class="form-control"
+              placeholder="password" autocomplete="off">
+          <small *ngIf="loginForm.get('password').hasError('required')" class="text-danger">
+            campo obrigatório
+          </small>
+        </div>
+        <button class="btn btn-lg btn-block btn-success" type="submit"
+            [disabled]="loginForm.invalid">
+          login
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<app-modal-i #modal></app-modal-i>
+

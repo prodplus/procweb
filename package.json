@@ -38,7 +38,7 @@
     "jspdf": "^1.5.3",
     "jwt-decode": "2.2.0",
     "ng2-currency-mask": "9.0.2",
-    "ngx-mask": "10.0.3",
+    "ngx-mask": "9.0.2",
     "popper.js": "1.16.1",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",

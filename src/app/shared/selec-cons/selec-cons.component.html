@@ -1,1 +1,29 @@
-<p>selec-cons works!</p>
+<app-search-input [form]="searchForm" lang="selecione o consumidor">
+</app-search-input>
+<div class="text-center mb-4">
+  <button class="btn btn-success" (click)="cadastrarNovo()">
+    cadastrar novo consumidor
+  </button>
+</div>
+<table class="table table-sm table-striped table-bordered">
+  <thead>
+    <th class="text-center">Denominação</th>
+    <th class="text-center" style="width: 60px;">sel</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let cons of page.content">
+      <td class="align-middle">{{ cons.denominacao }}</td>
+      <td class="text-center align-middle">
+        <button class="btn btn-success" title="selecionar" type="button"
+            (click)="selecionarConsumidor(cons)">
+          <fa-icon [icon]="iCheck"></fa-icon>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div class="text-center mb-4">
+  <button class="btn btn-danger" (click)="cancelar()">
+    cancelar
+  </button>
+</div>
