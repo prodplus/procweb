@@ -1,0 +1,49 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { Page } from '../models/auxiliares/page';
+import { AtendimentoDto } from '../models/dto/atendimento-dto';
+import { AtendimentoForm } from '../models/form/atendimento-form';
+
+const URL = environment.url + '/atendimentos';
+
+@Injectable({ providedIn: 'root' })
+export class AtendimentoService {
+  constructor(private http: HttpClient) {}
+
+  salvar(atendimento: AtendimentoForm): Observable<AtendimentoDto> {
+    return this.http.post<AtendimentoDto>(`${URL}`, atendimento);
+  }
+
+  atualizar(
+    id: number,
+    atendimento: AtendimentoForm
+  ): Observable<AtendimentoDto> {
+    return this.http.put<AtendimentoDto>(`${URL}/${id}`, atendimento);
+  }
+
+  buscar(id: number): Observable<AtendimentoDto> {
+    return this.http.get<AtendimentoDto>(`${URL}/${id}`);
+  }
+
+  listar(pagina: number, quant: number): Observable<Page<AtendimentoDto>> {
+    return this.http.get<Page<AtendimentoDto>>(
+      `${URL}/listar/${pagina}/${quant}`
+    );
+  }
+
+  listarPor(
+    parametro: string,
+    pagina: number,
+    quant: number
+  ): Observable<Page<AtendimentoDto>> {
+    return this.http.get<Page<AtendimentoDto>>(
+      `${URL}/listar/${pagina}/${quant}/${parametro}`
+    );
+  }
+
+  excluir(id: number): Observable<any> {
+    return this.http.delete(`${URL}/${id}`);
+  }
+}
