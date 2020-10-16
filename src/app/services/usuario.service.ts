@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AbstractControl } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { debounceTime, first, map, switchMap, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Page } from '../models/auxiliares/page';
 import { UsuarioDto } from '../models/dto/usuario-dto';
@@ -36,7 +38,7 @@ export class UsuarioService {
   }
 
   ativar(id: number, ativar: boolean): Observable<any> {
-    return this.http.delete(`${URL}/${id}/${ativar}`);
+    return this.http.delete(`${URL}/ativar/${id}/${ativar}`);
   }
 
   excluir(id: number): Observable<any> {
@@ -49,5 +51,16 @@ export class UsuarioService {
 
   emailDisponivel(email: string): Observable<boolean> {
     return this.http.get<boolean>(`${URL}/email_existe/${email}`);
+  }
+
+  checkEmailTaken(id: number) {
+    return (control: AbstractControl) => {
+      return control.valueChanges
+        .pipe(debounceTime(300))
+        .pipe(switchMap((email) => this.emailDisponivel(email)))
+        .pipe(map((isTaken) => (isTaken && !id ? { emailTaken: true } : null)))
+        .pipe(tap((r) => console.log(r)))
+        .pipe(first());
+    };
   }
 }

@@ -1,0 +1,12 @@
+<div class="text-center mb-4">
+  <app-botao-home class="mr-1"></app-botao-home>
+  <app-botao-novo [rota]="rota" class="ml-1 mr-1" [tipo]="mensagemNovo">
+  </app-botao-novo>
+  <app-botao-ativar [ativos]="ativos" (ativar)="ativarClick($event)"
+      class="ml-1">
+  </app-botao-ativar>
+  <h3 class="text-center text-dark">
+    <div *ngIf="ativos">ATIVOS</div>
+    <div *ngIf="!ativos">INATIVOS</div>
+  </h3>
+</div>

@@ -1,0 +1,54 @@
+<app-spinner *ngIf="isLoading"></app-spinner>
+<div class="container mt-4 mb-lg-5" *ngIf="!isLoading">
+  <app-titulo texto="Usuários"></app-titulo>
+  <div class="text-center mb-4">
+    <app-controle-at [rota]="['novo']" (ativar)="alterarAtivos()" [ativos]="ativos"
+        mensagemNovo="novo usuário">
+    </app-controle-at>
+  </div>
+
+  <table class="table table-sm table-striped table-hover table-bordered">
+    <caption *ngIf="page?.content?.length == 0" class="text-danger">
+      nenhum usuário cadastrado...
+    </caption>
+    <thead class="thead-dark">
+      <th class="text-center">Nome</th>
+      <th class="text-center">Email</th>
+      <th class="text-center">Perfil</th>
+      <th class="text-center" style="width: 60px;">edt</th>
+      <th class="text-center" style="width: 60px;">a/d</th>
+      <th class="text-center" style="width: 60px;">exc</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let usuario of page.content">
+        <td class="align-middle">{{ usuario.nome }}</td>
+        <td class="text-center align-middle">{{ usuario.email }}</td>
+        <td class="text-center align-middle">{{ trataPerfil(usuario.perfil) }}</td>
+        <td class="text-center align-middle">
+          <button class="btn btn-sm btn-info" type="button"
+              [routerLink]="['novo', usuario.id]">
+            <fa-icon [icon]="iEdit"></fa-icon>
+          </button>
+        </td>
+        <td class="text-center align-middle">
+          <button class="btn btn-sm btn-dark" type="button"
+              (click)="chamaModal(usuario.id, 'd')" *ngIf="ativos">
+            <fa-icon [icon]="iToggleOn"></fa-icon>
+          </button>
+          <button class="btn btn-sm btn-dark" type="button"
+              (click)="chamaModal(usuario.id, 'a')" *ngIf="!ativos">
+            <fa-icon [icon]="iToggleOff"></fa-icon>
+          </button>
+        </td>
+        <td class="text-center align-middle">
+          <button class="btn btn-sm btn-danger" type="button"
+              (click)="chamaModal(usuario.id, 'e')">
+            <fa-icon [icon]="iTrash"></fa-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<app-modal #modal (sim)="confirmouModal($event)"></app-modal>

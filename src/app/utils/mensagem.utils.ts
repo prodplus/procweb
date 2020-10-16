@@ -25,3 +25,13 @@ export function mensagemPadrao(
 
   return retorno;
 }
+
+export function trataOperacao(opcao: string, tipo: string): string {
+  return opcao === 'e'
+    ? 'EXCLUIR definitivamente ' + tipo + '?'
+    : opcao === 'd'
+    ? 'DESATIVAR ' + tipo + '?'
+    : opcao === 'a'
+    ? 'ATIVAR ' + tipo + '?'
+    : '';
+}

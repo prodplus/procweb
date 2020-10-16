@@ -1,0 +1,68 @@
+<app-spinner *ngIf="isLoading"></app-spinner>
+<div class="container mt-4 mb-lg-5" *ngIf="!isLoading">
+  <app-titulo texto="Usuários"></app-titulo>
+  <app-botao-cancelar [rota]="['/cadastro/usuarios']"></app-botao-cancelar>
+
+  <form [formGroup]="form" (submit)="salvar()">
+    <div class="form-group col-8">
+      <label for="inputNome">Nome:</label>
+      <input type="text" id="inputNome" class="form-control" formControlName="nome"
+          onkeyup="this.value = this.value.toUpperCase()" #input>
+      <small *ngIf="form.get('nome').hasError('required')" class="text-danger">
+        obrigatório
+      </small>
+    </div>
+    <div class="form-group col-6">
+      <label for="inputEmail">Email:</label>
+      <input type="email" id="inputEmail" class="form-control" formControlName="email">
+      <small *ngIf="form.get('email').hasError('required')" class="text-danger">
+        obrigatório
+      </small>
+      <small *ngIf="form.get('email').hasError('email')" class="text-danger">
+        email inválido!
+      </small>
+      <small *ngIf="form.get('email').hasError('emailTaken')" class="text-danger">
+        usuário já cadastrado!
+      </small>
+    </div>
+    <div class="row col-12">
+      <div class="form-group col-4">
+        <label for="inputPassword">Senha:</label>
+        <input type="password" id="inputPassword" class="form-control"
+            formControlName="password">
+        <small *ngIf="form.get('password').hasError('required')" class="text-danger">
+          obrigatório
+        </small>
+      </div>
+      <div class="form-group col-4">
+        <label for="inputConfirma">Confirmação:</label>
+        <input type="password" id="inputConfirma" class="form-control"
+            formControlName="confirma">
+        <small *ngIf="form.get('confirma').hasError('required')" class="text-danger">
+          obrigatório
+        </small>
+        <small *ngIf="form.get('confirma').hasError('mustMatch')" class="text-danger">
+          senhas não conferem
+        </small>
+      </div>
+    </div>
+    <div class="form-group col-4">
+      <label for="selectPerfil">Perfil:</label>
+      <select id="selectPerfil" class="form-control" formControlName="perfil">
+        <option *ngFor="let perfil of perfis" [value]="perfil.role">
+          {{ perfil.descricao }}
+        </option>
+      </select>
+    </div>
+    <small *ngIf="form.get('perfil').hasError('required')" class="text-danger">
+      obrigatório
+    </small>
+
+    <button class="btn btn-success btn-block btn-lg" type="submit"
+        [disabled]="form.invalid">
+      salvar
+    </button>
+  </form>
+</div>
+
+<app-modal #modal></app-modal>

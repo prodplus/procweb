@@ -10,7 +10,7 @@ export function MustMatch(controlName: string, matchingControlName: string) {
     }
 
     if (control.value !== matchinControl.value) {
-      matchinControl.setErrors({ mustmatch: true });
+      matchinControl.setErrors({ mustMatch: true });
     } else {
       matchinControl.setErrors(null);
     }
