@@ -31,10 +31,10 @@
       <label for="inputNro">Nro:</label>
       <input type="text" id="inputNro" class="form-control" formControlName="numero"
           #inputNro maxlength="30">
-      <small *ngIf="form.get('nro').hasError('required')" class="text-danger">
+      <small *ngIf="form.get('numero').hasError('required')" class="text-danger">
         obrigatório
       </small>
-      <small *ngIf="form.get('nro').hasError('maxLength')" class="text-danger">
+      <small *ngIf="form.get('numero').hasError('maxLength')" class="text-danger">
         muito longo
       </small>
     </div>

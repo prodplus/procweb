@@ -1,0 +1,52 @@
+<app-spinner *ngIf="isLoading"></app-spinner>
+<div class="container mt-4 mb-lg-5" *ngIf="!isLoading">
+  <app-titulo texto="Consumidores"></app-titulo>
+  <div class="text-center mb-4">
+    <app-botao-home class="mr-1"></app-botao-home>
+    <app-botao-novo [rota]="['novo']" tipo="novo consumidor" class="ml-1">
+    </app-botao-novo>
+  </div>
+
+  <div class="col-4">
+    <app-search-input [form]="searchForm" label="buscar consumidor">
+    </app-search-input>
+  </div>
+
+  <app-paginador [pagina]="pagina" (mudaPagina)="mudaPagina($event)"
+      [tamanhoTotal]="page.totalElements" [tamanhoPagina]="page.size">
+  </app-paginador>
+  <table class="table table-sm table-hover table-striped table-bordered">
+    <caption *ngIf="page?.content?.length == 0" class="text-danger">
+      nenhum consumidor cadastrado...
+    </caption>
+    <thead class="thead-dark">
+      <th class="text-center">Denominação</th>
+      <th class="text-center">CPF/CNPJ</th>
+      <th class="text-center" style="width: 60px;">edt</th>
+      <th class="text-center" style="width: 60px;">exc</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cons of page.content">
+        <td class="align-middle">{{ cons.denominacao }}</td>
+        <td class="text-right align-middle">
+          {{ cons.cadastro | mask: getMascara(cons.tipo) }}
+        </td>
+        <td class="text-center align-middle">
+          <button class="btn btn-sm btn-info" type="button" [routerLink]="['novo', cons.id]">
+            <fa-icon [icon]="iEdit"></fa-icon>
+          </button>
+        </td>
+        <td class="text-center align-middle">
+          <button class="btn btn-sm btn-danger" type="button" (click)="chamaModal(cons.id)">
+            <fa-icon [icon]="iTrash"></fa-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      Total: {{ page.totalElements }}
+    </tfoot>
+  </table>
+</div>
+
+<app-modal #modal (sim)="concordaModal($event)"></app-modal>

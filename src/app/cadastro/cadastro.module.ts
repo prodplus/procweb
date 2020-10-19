@@ -8,11 +8,18 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxMaskModule } from 'ngx-mask';
 import { SharedModule } from '../shared/shared.module';
 import { CadastroRoutingModule } from './cadastro-routing.module';
+import { CadConsumidorComponent } from './consumidores/cad-consumidor/cad-consumidor.component';
+import { ListaConsumidoresComponent } from './consumidores/lista-consumidores/lista-consumidores.component';
 import { CadUsuarioComponent } from './usuarios/cad-usuario/cad-usuario.component';
 import { ListaUsuariosComponent } from './usuarios/lista-usuarios/lista-usuarios.component';
 
 @NgModule({
-  declarations: [ListaUsuariosComponent, CadUsuarioComponent],
+  declarations: [
+    ListaUsuariosComponent,
+    CadUsuarioComponent,
+    ListaConsumidoresComponent,
+    CadConsumidorComponent,
+  ],
   imports: [
     CommonModule,
     FormsModule,
