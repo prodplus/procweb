@@ -1,0 +1,58 @@
+<app-spinner *ngIf="isLoading"></app-spinner>
+<div class="container mt-4 mb-lg-5" *ngIf="!isLoading">
+  <app-titulo texto="Fornecedores"></app-titulo>
+  <div class="text-center mb-4">
+    <app-botao-home class="mr-1"></app-botao-home>
+    <app-botao-novo class="ml-1" [rota]="['novo']" tipo="novo fornecedor">
+    </app-botao-novo>
+  </div>
+
+  <div class="col-4">
+    <app-search-input [form]="searchForm"></app-search-input>
+  </div>
+
+  <app-paginador [pagina]="pagina" [tamanhoTotal]="page.totalElements"
+      [tamanhoPagina]="page.size" (mudaPagina)="mudaPagina($event)">
+  </app-paginador>
+  <table class="table table-sm table-striped table-hover table-bordered">
+    <caption *ngIf="page?.totalElements == 0">
+      nenhum fornecedor cadastrado
+    </caption>
+    <thead class="thead-dark">
+      <th class="text-center">Fantasia</th>
+      <th class="text-center">Razão Social</th>
+      <th class="text-center">CNPJ</th>
+      <th class="text-center" style="width: 60px;">edt</th>
+      <th class="text-center" style="width: 60px;">exc</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let forn of page.content">
+        <td class="align-middle">{{ forn.fantasia }}</td>
+        <td class="text-center align-middle">{{ forn.razaoSocial }}</td>
+        <td class="text-center align-middle">
+          {{ forn.cnpj | mask: '00.000.000/0000-00' }}
+        </td>
+        <td class="text-center align-middle">
+          <button class="btn btn-sm btn-info" type="button"
+              [routerLink]="['novo', forn.id]">
+            <fa-icon [icon]="iEdit"></fa-icon>
+          </button>
+        </td>
+        <td class="text-center align-middle">
+          <button class="btn btn-sm btn-danger" type="button"
+              (click)="chamaModal(forn.id)">
+            <fa-icon [icon]="iTrash"></fa-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      Total: {{ page.totalElements }}
+    </tfoot>
+  </table>
+  <app-paginador [pagina]="pagina" [tamanhoTotal]="page.totalElements"
+      [tamanhoPagina]="page.size" (mudaPagina)="mudaPagina($event)">
+  </app-paginador>
+</div>
+
+<app-modal #modal (sim)="concordaModal($event)"></app-modal>

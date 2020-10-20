@@ -10,6 +10,8 @@ import { SharedModule } from '../shared/shared.module';
 import { CadastroRoutingModule } from './cadastro-routing.module';
 import { CadConsumidorComponent } from './consumidores/cad-consumidor/cad-consumidor.component';
 import { ListaConsumidoresComponent } from './consumidores/lista-consumidores/lista-consumidores.component';
+import { CadFornecedorComponent } from './fornecedores/cad-fornecedor/cad-fornecedor.component';
+import { ListaFornecedoresComponent } from './fornecedores/lista-fornecedores/lista-fornecedores.component';
 import { CadUsuarioComponent } from './usuarios/cad-usuario/cad-usuario.component';
 import { ListaUsuariosComponent } from './usuarios/lista-usuarios/lista-usuarios.component';
 
@@ -19,6 +21,8 @@ import { ListaUsuariosComponent } from './usuarios/lista-usuarios/lista-usuarios
     CadUsuarioComponent,
     ListaConsumidoresComponent,
     CadConsumidorComponent,
+    ListaFornecedoresComponent,
+    CadFornecedorComponent,
   ],
   imports: [
     CommonModule,

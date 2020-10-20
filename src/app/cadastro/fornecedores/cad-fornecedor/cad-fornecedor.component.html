@@ -1,0 +1,43 @@
+<app-spinner *ngIf="isLoading"></app-spinner>
+<div class="container mt-4 mb-lg-5" *ngIf="!isLoading">
+  <div #scrollInit></div>
+  <app-titulo texto="Fornecedores"></app-titulo>
+  <app-botao-cancelar [rota]="['/cadastro/fornecedores']"
+      *ngIf="!idExterno">
+  </app-botao-cancelar>
+
+  <form [formGroup]="form" (submit)="salvar()">
+    <div class="form-group col-8">
+      <label for="inputFantasia">Fantasia:</label>
+      <input type="text" id="inputFantasia" class="form-control" formControlName="fantasia"
+          onkeyup="this.value=this.value.toUpperCase()" #input autofocus>
+      <small *ngIf="form.get('fantasia').hasError('required')" class="text-danger">
+        obrigatório
+      </small>
+    </div>
+    <div class="form-group col-8">
+      <label for="inputRazao">Razão Social:</label>
+      <input type="text" id="inputRazao" class="form-control" formControlName="razao">
+    </div>
+    <div class="form-group col-3">
+      <label for="inputCnpj">CNPJ:</label>
+      <input type="text" id="inputCnpj" class="form-control" formControlName="cnpj"
+          mask="00.000.000/0000-00" style="text-align: right;">
+    </div>
+    <div class="form-group col-6">
+      <label for="inputEmail">Email:</label>
+      <input type="email" id="inputEmail" class="form-control" formControlName="email">
+      <small *ngIf="form.get('email').hasError('email')" class="text-danger">
+        email inválido
+      </small>
+    </div>
+    <app-cad-fones [fones]="fones"></app-cad-fones>
+    <app-cad-endereco [form]="form"></app-cad-endereco>
+    <button class="btn btn-success btn-block btn-lg" type="submit"
+        [disabled]="form.invalid">
+      salvar
+    </button>
+  </form>
+</div>
+
+<app-modal #modal></app-modal>

@@ -29,13 +29,15 @@ export class Fornecedor {
     this.razaoSocial = razaoSocial;
     this.cnpj = cnpj;
     this.email = email;
-    this.endereco.cep = cep;
-    this.endereco.logradouro = logradouro;
-    this.endereco.numero = numero;
-    this.endereco.complemento = complemento;
-    this.endereco.bairro = bairro;
-    this.endereco.municipio = municipio;
-    this.endereco.uf = uf;
+    this.endereco = new Endereco(
+      cep,
+      logradouro,
+      numero,
+      complemento,
+      bairro,
+      municipio,
+      uf
+    );
     this.fones = fones;
   }
 }
