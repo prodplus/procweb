@@ -1,0 +1,90 @@
+<app-spinner *ngIf="isLoading"></app-spinner>
+<div class="container mt-4 mb-lg-5" *ngIf="!isLoading">
+  <app-titulo texto="Processos"></app-titulo>
+  <div class="text-center mb-4">
+    <app-botao-home class="mr-1"></app-botao-home>
+    <app-botao-novo [rota]="['novo']" tipo="nova reclamação" class="ml-1">
+    </app-botao-novo>
+  </div>
+
+  <form [formGroup]="searchSit">
+    <div class="form-group col-4">
+      <label for="selectSituacao">Situação:</label>
+      <select id="selectSituacao" class="form-control" formControlName="input">
+        <option [ngValue]="null">TODOS</option>
+        <option *ngFor="let sit of situacoes" [value]="sit">{{ sit }}</option>
+      </select>
+    </div>
+  </form>
+
+  <div class="row col-12">
+    <div class="col-4">
+      <app-search-input [form]="searchAutos" label="buscar por autos">
+      </app-search-input>
+    </div>
+    <div class="col-4">
+      <app-search-input [form]="searchCons" label="buscar por consumidor">
+      </app-search-input>
+    </div>
+    <div class="col-4">
+      <app-search-input [form]="searchForn" label="buscar por fornecedor">
+      </app-search-input>
+    </div>
+  </div>
+
+  <app-paginador [tamanhoTotal]="page.totalElements" [tamanhoPagina]="page.size"
+      [pagina]="pagina" (mudaPagina)="mudaPagina($event)">
+  </app-paginador>
+  <table class="table table-sm table-striped table-hover table-bordered">
+    <caption *ngIf="page.totalElements == 0">
+      nenhum processo cadastrado...
+    </caption>
+    <thead class="thead-dark">
+      <th class="text-center">Autos</th>
+      <th class="text-center">Consumidor(es)</th>
+      <th class="text-center">Fornecedor(es)</th>
+      <th class="text-center" style="width: 60px;">edt</th>
+      <th class="text-center" style="width: 60px;">ini</th>
+      <th class="text-center" style="width: 60px;">exc</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let proc of page.content" [title]="proc.situacao"
+          [ngClass]="getRowClass(proc)">
+        <td class="text-center align-middle">{{ proc.autos }}</td>
+        <td class="text-center align-middle">
+          <div *ngFor="let cons of proc.consumidores">
+            {{ cons }}
+          </div>
+        </td>
+        <td class="text-center align-middle">
+          <div *ngFor="let forn of proc.fornecedores">
+            {{ forn }}
+          </div>
+        </td>
+        <td class="text-center align-middle">
+          <button class="btn btn-sm btn-success" title="ver processo" type="button"
+              [routerLink]="['novo', proc.id]">
+            <fa-icon [icon]="iFolder"></fa-icon>
+          </button>
+        </td>
+        <td class="text-center align-middle">
+          <button class="btn btn-sm btn-dark" title="imprimir inicial" type="button"
+              (click)="inicial(proc.id)">
+            <fa-icon [icon]="iPrint"></fa-icon>
+          </button>
+        </td>
+        <td class="text-center align-middle">
+          <button class="btn btn-sm btn-danger" title="excluir processo" type="button"
+              (click)="preparaExcluir(proc.id)">
+            <fa-icon [icon]="iTrash"></fa-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      Total: {{ page.totalElements }}
+    </tfoot>
+  </table>
+</div>
+
+<app-modal #modal (sim)="concordou($event)"></app-modal>

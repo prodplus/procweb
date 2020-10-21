@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Atendimento } from '../models/atendimento';
 import { Page } from '../models/auxiliares/page';
 import { AtendimentoDto } from '../models/dto/atendimento-dto';
 import { AtendimentoForm } from '../models/form/atendimento-form';
@@ -23,8 +24,8 @@ export class AtendimentoService {
     return this.http.put<AtendimentoDto>(`${URL}/${id}`, atendimento);
   }
 
-  buscar(id: number): Observable<AtendimentoDto> {
-    return this.http.get<AtendimentoDto>(`${URL}/${id}`);
+  buscar(id: number): Observable<Atendimento> {
+    return this.http.get<Atendimento>(`${URL}/${id}`);
   }
 
   listar(pagina: number, quant: number): Observable<Page<AtendimentoDto>> {

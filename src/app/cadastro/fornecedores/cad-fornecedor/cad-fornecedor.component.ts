@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { Fornecedor } from 'src/app/models/fornecedor';
 import { FornecedorService } from 'src/app/services/fornecedor.service';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
@@ -24,6 +25,7 @@ export class CadFornecedorComponent implements OnInit, AfterViewInit {
   idFornecedor: number;
   form: FormGroup;
   fones: string[];
+  iWindowClose = faWindowClose;
   @Input() idExterno: number;
   @Output() salvo = new EventEmitter<Fornecedor>();
   @ViewChild('modal', { static: false })
@@ -74,6 +76,10 @@ export class CadFornecedorComponent implements OnInit, AfterViewInit {
             this.idFornecedor = this.idExterno;
           }
         );
+      } else if (this.idExterno == 0) {
+        this.idExterno = 1;
+        this.fones = [];
+        this.idFornecedor = null;
       } else {
         this.fones = [];
         this.idFornecedor = null;
@@ -160,5 +166,9 @@ export class CadFornecedorComponent implements OnInit, AfterViewInit {
           }
         );
     }
+  }
+
+  cancelarExterno() {
+    this.salvo.emit(null);
   }
 }

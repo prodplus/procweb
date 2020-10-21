@@ -22,3 +22,16 @@ export class Movimento {
     this.auxT = auxT;
   }
 }
+
+export function ordenaMovimentos(movimentos: Movimento[]): Movimento[] {
+  movimentos.sort((a, b) => {
+    if (a.data > b.data) {
+      return -1;
+    } else if (a.data < b.data) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+  return movimentos;
+}

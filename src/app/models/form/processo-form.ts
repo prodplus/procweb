@@ -1,3 +1,5 @@
+import { Movimento } from '../auxiliares/movimento';
+
 export class ProcessoForm {
   id: number;
   tipo: string;
@@ -8,6 +10,7 @@ export class ProcessoForm {
   data: string;
   relato: string;
   situacao: string;
+  movimentacao: Movimento[];
 
   constructor(
     id: number,
@@ -18,7 +21,8 @@ export class ProcessoForm {
     fornecedores: number[],
     data: string,
     relato: string,
-    situacao: string
+    situacao: string,
+    movimentacao: Movimento[]
   ) {
     this.id = id;
     this.tipo = tipo;
@@ -29,5 +33,6 @@ export class ProcessoForm {
     this.data = data;
     this.relato = relato;
     this.situacao = situacao;
+    this.movimentacao = movimentacao;
   }
 }

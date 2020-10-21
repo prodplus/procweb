@@ -1,10 +1,3 @@
-<h3 class="text-center text-info">Nova Movimentação</h3>
-<div class="text-center mb-4">
-  <button class="btn botao-cabecalho btn-danger" (click)="cancelar()">
-    <fa-icon [icon]="iWindowClose"></fa-icon>
-  </button>
-</div>
-
 <form [formGroup]="movimentoForm" (submit)="salvar()">
   <div class="form-group col-3">
     <label for="inputDataM">Data:</label>
@@ -53,8 +46,11 @@
     </div>
   </div>
   <div class="text-center">
-    <button class="btn btn-success" [disabled]="movimentoForm.invalid" type="submit">
+    <button class="btn btn-success mr-1" [disabled]="movimentoForm.invalid" type="submit">
       salvar
+    </button>
+    <button class="btn btn-danger ml-1" (click)="cancelar()" type="button">
+      cancelar
     </button>
   </div>
 </form>

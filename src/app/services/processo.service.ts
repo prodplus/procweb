@@ -74,7 +74,7 @@ export class ProcessoService {
     return this.http.delete(`${URL}/${id}`);
   }
 
-  getAutos(data: string): Observable<string> {
-    return this.http.get<string>(`${URL}/autos/${data}`);
+  getAutos(data: string): Observable<{ nro: string }> {
+    return this.http.get<{ nro: string }>(`${URL}/autos/${data}`);
   }
 }

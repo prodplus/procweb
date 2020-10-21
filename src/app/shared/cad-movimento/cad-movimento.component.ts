@@ -3,7 +3,6 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  Input,
   OnInit,
   Output,
   ViewChild,
@@ -20,9 +19,6 @@ import { toDateApi } from 'src/app/utils/date.utils';
   styleUrls: ['./cad-movimento.component.css'],
 })
 export class CadMovimentoComponent implements OnInit, AfterViewInit {
-  @Input() movimentacao: Movimento[];
-  @Input() de: string;
-  @Input() visualizar: Movimento;
   @Output() cadMovimento = new EventEmitter<Movimento>();
   movimentoForm: FormGroup;
   iWindowClose = faWindowClose;
@@ -37,16 +33,12 @@ export class CadMovimentoComponent implements OnInit, AfterViewInit {
 
     this.movimentoForm = this.builder.group({
       data: ['', [Validators.required]],
-      de: [this.de, [Validators.required]],
+      de: [null, [Validators.required]],
       para: [null, [Validators.required]],
       averbacao: [''],
       auxD: [null],
       auxT: [null],
     });
-
-    if (this.visualizar) {
-      this.carregaForm(this.visualizar);
-    }
   }
 
   ngAfterViewInit(): void {
@@ -57,17 +49,6 @@ export class CadMovimentoComponent implements OnInit, AfterViewInit {
 
   cancelar() {
     this.cadMovimento.emit(null);
-  }
-
-  private carregaForm(mov: Movimento) {
-    this.movimentoForm.patchValue({
-      data: mov.data,
-      de: mov.de,
-      para: mov.para,
-      averbacao: mov.averbacao,
-      auxD: mov.auxD,
-      auxT: mov.auxT,
-    });
   }
 
   private carregaMovimento(): Movimento {

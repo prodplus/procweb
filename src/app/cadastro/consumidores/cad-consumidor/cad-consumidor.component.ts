@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { Consumidor } from 'src/app/models/consumidor';
 import { ConsumidorService } from 'src/app/services/consumidor.service';
 import { EnumService } from 'src/app/services/enum.service';
@@ -26,6 +27,7 @@ export class CadConsumidorComponent implements OnInit, AfterViewInit {
   form: FormGroup;
   tipos: string[];
   fones: string[];
+  iWindowClose = faWindowClose;
   @Input() idExterno: number;
   @Output() salvo = new EventEmitter<Consumidor>();
   @ViewChild('modal', { static: false })
@@ -87,6 +89,10 @@ export class CadConsumidorComponent implements OnInit, AfterViewInit {
             this.idConsumidor = this.idExterno;
           }
         );
+      } else if (this.idExterno == 0) {
+        this.idExterno = 1;
+        this.fones = [];
+        this.idConsumidor = null;
       } else {
         this.fones = [];
         this.idConsumidor = null;
@@ -102,6 +108,7 @@ export class CadConsumidorComponent implements OnInit, AfterViewInit {
   }
 
   private carregaForm(cons: Consumidor) {
+    this.fones = cons.fones;
     this.form.patchValue({
       tipo: cons.tipo,
       denominacao: cons.denominacao,
@@ -173,6 +180,10 @@ export class CadConsumidorComponent implements OnInit, AfterViewInit {
     } else {
       this.router.navigate(['/cadastro/consumidores']);
     }
+  }
+
+  cancelarExterno() {
+    this.salvo.emit(null);
   }
 
   getMascaraCadastro(): string {

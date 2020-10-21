@@ -5,6 +5,12 @@
   <app-botao-cancelar [rota]="['/cadastro/fornecedores']"
       *ngIf="!idExterno">
   </app-botao-cancelar>
+  <div class="text-center mb-4">
+    <button class="btn botao-cabecalho btn-danger" title="cancelar cadastro"
+        (click)="cancelarExterno()">
+      <fa-icon [icon]="iWindowClose"></fa-icon>
+    </button>
+  </div>
 
   <form [formGroup]="form" (submit)="salvar()">
     <div class="form-group col-8">

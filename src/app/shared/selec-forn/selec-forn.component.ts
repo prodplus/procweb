@@ -59,6 +59,6 @@ export class SelecFornComponent implements OnInit, AfterViewInit {
   }
 
   cancelar() {
-    this.selecao.emit(null);
+    this.novo.emit(false);
   }
 }
