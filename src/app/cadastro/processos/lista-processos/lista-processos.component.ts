@@ -272,6 +272,7 @@ export class ListaProcessosComponent implements OnInit, AfterViewInit {
 
   concordou(resp: RespModal) {
     if (resp.emissao) {
+      this.excluir(this.idProcesso);
     }
   }
 

@@ -1,0 +1,127 @@
+<app-spinner *ngIf="isLoading"></app-spinner>
+<div class="container mt-4 mb-lg-5" *ngIf="!isLoading && !editandoCons && !editandoForn">
+  <app-titulo texto="Atendimentos"></app-titulo>
+  <app-botao-cancelar [rota]="['/cadastro/atendimentos']"></app-botao-cancelar>
+
+  <form [formGroup]="form" (submit)="salvar()">
+    <div class="form-group col-3">
+      <label for="inputData">Data:</label>
+      <input type="date" id="inputData" class="form-control" formControlName="data"
+          #input autofocus style="text-align: right;">
+    </div>
+
+    <!-- Consumidores -->
+    <div #scrollConsumidor></div>
+    <div class="card mb-4">
+      <div class="card-header">
+        <h3 class="text-center text-primary">Consumidores</h3>
+      </div>
+      <div class="card-body">
+        <app-selec-cons *ngIf="selecionandoConsumidor; else consumidores;"
+            (selecao)="consumidorSelecionado($event)" (novo)="novoConsumidor($event)">
+        </app-selec-cons>
+        <ng-template #consumidores>
+          <div class="text-center mb-3">
+            <button class="btn btn-success" (click)="selecionarConsumidor()">
+              adicionar
+            </button>
+          </div>
+          <table class="table table-sm table-striped table-bordered table-primary">
+            <caption *ngIf="atendimento.consumidores.length == 0">
+              nenhum consumidor adicionado!
+            </caption>
+            <thead>
+              <th class="text-center">Denominação</th>
+              <th class="text-center">CPF/CNPJ</th>
+              <th class="text-center" style="width: 60px;">rem</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let cons of atendimento.consumidores; index as i;">
+                <td class="align-middle">{{ cons.denominacao }}</td>
+                <td class="text-right align-middle">
+                  {{ cons.cadastro | mask: getMascaraCadastro(cons.tipo) }}
+                </td>
+                <td class="text-center align-middle">
+                  <button class="btn btn-sm btn-danger" type="button" title="remover consumidor"
+                      (click)="removerConsumidor(i)">
+                    <fa-icon [icon]="iMinus"></fa-icon>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </ng-template>
+      </div>
+    </div>
+
+    <!-- Fornecedores -->
+    <div #scrollFornecedor></div>
+    <div class="card mb-4">
+      <div class="card-header">
+        <h3 class="text-center text-success">Fornecedores</h3>
+      </div>
+      <div class="card-body">
+        <app-selec-forn *ngIf="selecionandoFornecedor; else fornecedores;"
+            (selecao)="fornecedorSelecionado($event)" (novo)="novoFornecedor($event)">
+        </app-selec-forn>
+        <ng-template #fornecedores>
+          <div class="text-center mb-3">
+            <button class="btn btn-success" (click)="selecionarFornecedor()">
+              adicionar
+            </button>
+          </div>
+          <table class="table table-sm table-striped table-bordered table-success">
+            <caption *ngIf="atendimento.fornecedores.length == 0">
+              nenhum fornecedor adicionado!
+            </caption>
+            <thead>
+              <th class="text-center">Fantasia</th>
+              <th class="text-center">Razão</th>
+              <th class="text-center" style="width: 60px;">rem</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let forn of atendimento.fornecedores; index as i;">
+                <td class="align-middle">{{ forn.fantasia }}</td>
+                <td class="text-center align-middle">
+                  {{ forn.razaoSocial }}
+                </td>
+                <td class="text-center align-middle">
+                  <button class="btn btn-sm btn-danger" type="button"
+                      title="remover representante" (click)="removerFornecedor(i)">
+                    <fa-icon [icon]="iMinus"></fa-icon>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </ng-template>
+      </div>
+    </div>
+
+    <div class="card mb-4">
+      <div class="card-header">
+        <h3 class="text-center text-danger">Relato</h3>
+      </div>
+      <div class="card-body">
+        <div class="form-group col-12">
+          <textarea id="inputRelato" cols="30" rows="15" class="form-control"
+              formControlName="relato">
+          </textarea>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-lg btn-block btn-success" type="submit"
+        [disabled]="form.invalid || atendimento.consumidores.length == 0 || atendimento.fornecedores.length == 0">
+      salvar
+    </button>
+  </form>
+</div>
+
+<app-modal #modal></app-modal>
+<app-cad-consumidor [idExterno]="idConsumidor" *ngIf="editandoCons"
+    (salvo)="consumidorSalvo($event)">
+</app-cad-consumidor>
+<app-cad-fornecedor [idExterno]="idFornecedor" *ngIf="editandoForn"
+    (salvo)="fornecedorSalvo($event)">
+</app-cad-fornecedor>

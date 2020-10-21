@@ -64,7 +64,7 @@ export class CadConsumidorComponent implements OnInit, AfterViewInit {
       cep: ['', [Validators.required]],
       logradouro: ['', [Validators.required]],
       numero: ['', [Validators.required]],
-      complemento: ['', [Validators.required]],
+      complemento: [''],
       bairro: ['', [Validators.required]],
       municipio: ['', [Validators.required]],
       uf: [null, [Validators.required]],
