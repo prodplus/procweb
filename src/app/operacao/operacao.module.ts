@@ -6,9 +6,10 @@ import { SharedModule } from '../shared/shared.module';
 import { NotFornecedorComponent } from './fornecedor/not-fornecedor/not-fornecedor.component';
 import { PorNotFornecedorComponent } from './fornecedor/por-not-fornecedor/por-not-fornecedor.component';
 import { OperacaoRoutingModule } from './operacao-routing.module';
+import { PorNotConsumidorComponent } from './consumidor/por-not-consumidor/por-not-consumidor.component';
 
 @NgModule({
-  declarations: [PorNotFornecedorComponent, NotFornecedorComponent],
+  declarations: [PorNotFornecedorComponent, NotFornecedorComponent, PorNotConsumidorComponent],
   imports: [
     CommonModule,
     SharedModule,

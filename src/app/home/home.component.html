@@ -1,7 +1,7 @@
 <div class="container mt-4 mb-lg-5">
-  <h1 class="text-center text-success" *ngIf="(user$ | async); else login;">
-    Bem vindo ao Sistema!
-  </h1>
+  <app-titulo texto="Bem vindo ao Sistema"
+      *ngIf="(user$ | async); else login;">
+  </app-titulo>
 </div>
 <ng-template #login>
   <app-login></app-login>
