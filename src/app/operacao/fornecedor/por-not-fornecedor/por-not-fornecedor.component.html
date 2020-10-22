@@ -1,0 +1,47 @@
+<app-spinner *ngIf="isLoading"></app-spinner>
+<div class="container mt-4 mb-lg-5" *ngIf="!isLoading">
+  <app-titulo texto="Notificar Fornecedores"></app-titulo>
+  <div class="text-center mb-4">
+    <app-botao-home></app-botao-home>
+  </div>
+
+  <table class="table table-sm table-light table-striped table-bordered">
+    <caption *ngIf="processos.length == 0">nenhum processo para notificar</caption>
+    <thead class="thead-dark">
+      <th class="text-center">Autos</th>
+      <th class="text-center">Consumidor(es)</th>
+      <th class="text-center">Fornecedor(es)</th>
+      <th class="text-center" style="width: 60px;">not</th>
+      <th class="text-center" style="width: 60px;">ok</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let proc of processos">
+        <td class="text-center align-middle">{{ proc.autos }}</td>
+        <td class="text-center align-middle">
+          <div *ngFor="let cons of proc.consumidores">
+            {{ cons }}
+          </div>
+        </td>
+        <td class="text-center align-middle">
+          <div *ngFor="let forn of proc.fornecedores">
+            {{ forn }}
+          </div>
+        </td>
+        <td class="text-center align-middle">
+          <button class="btn btn-sm btn-primary" title="notificar processo"
+              [routerLink]="['/operacao/not-fornecedor', proc.id]">
+            <fa-icon [icon]="iFile"></fa-icon>
+          </button>
+        </td>
+        <td class="text-center align-middle">
+          <button class="btn btn-sm btn-success" title="concluir notificação"
+              (click)="preparaConcluir(proc.id)">
+            <fa-icon [icon]="iCheck"></fa-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<app-modal #modal (sim)="emissao($event)"></app-modal>
