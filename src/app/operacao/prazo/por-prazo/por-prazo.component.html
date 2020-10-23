@@ -1,0 +1,42 @@
+<app-spinner *ngIf="isLoading"></app-spinner>
+<div class="container mt-4 mb-lg-5" *ngIf="!isLoading">
+  <app-titulo texto="Processos com Prazo"></app-titulo>
+  <div class="text-center mb-4">
+    <app-botao-home></app-botao-home>
+  </div>
+
+  <table class="table table-sm table-hover table-striped table-bordered">
+    <caption *ngIf="processos.length == 0">
+      nenhum processo aguardando prazo...
+    </caption>
+    <thead class="thead-dark">
+      <th class="text-center">Autos</th>
+      <th class="text-center">Consumidor(es)</th>
+      <th class="text-center">Fornecedor(es)</th>
+      <th class="text-center" style="width: 60px;">edt</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let proc of processos">
+        <td class="align-middle text-center">{{ proc.autos }}</td>
+        <td class="text-center align-middle">
+          <div *ngFor="let cons of proc.consumidores">
+            {{ cons }}
+          </div>
+        </td>
+        <td class="text-center align-middle">
+          <div *ngFor="let forn of proc.fornecedores">
+            {{ forn }}
+          </div>
+        </td>
+        <td class="text-center align-middle">
+          <button class="btn btn-sm btn-success" title="ver processo"
+              [routerLink]="['/cadastro/processos/novo', proc.id]">
+            <fa-icon [icon]="iEdit"></fa-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<app-modal #modal></app-modal>

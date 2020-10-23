@@ -4,9 +4,11 @@ import { AuthGuard } from '../core/auth/auth.guard';
 import { CadProcessoResolver } from '../resources/cad-processo.resolver';
 import { NotConsumidorResolver } from '../resources/not-consumidor.resolver';
 import { NotFornecedorResolver } from '../resources/not-fornecedor.resolver';
+import { PrazoResolver } from '../resources/prazo.resolver';
 import { PorNotConsumidorComponent } from './consumidor/por-not-consumidor/por-not-consumidor.component';
 import { NotFornecedorComponent } from './fornecedor/not-fornecedor/not-fornecedor.component';
 import { PorNotFornecedorComponent } from './fornecedor/por-not-fornecedor/por-not-fornecedor.component';
+import { PorPrazoComponent } from './prazo/por-prazo/por-prazo.component';
 
 export const routes: Routes = [
   {
@@ -36,6 +38,17 @@ export const routes: Routes = [
             path: '',
             component: PorNotConsumidorComponent,
             resolve: { processos: NotConsumidorResolver },
+          },
+        ],
+      },
+      {
+        path: 'prazo',
+        canActivate: [AuthGuard],
+        children: [
+          {
+            path: '',
+            component: PorPrazoComponent,
+            resolve: { processos: PrazoResolver },
           },
         ],
       },
