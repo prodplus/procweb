@@ -12,7 +12,6 @@ import { ModalComponent } from 'src/app/shared/modal/modal.component';
 export class PorPrazoComponent implements OnInit {
   isLoading = false;
   processos: ProcessoDto[];
-  idProcesso: number;
   iEdit = faFolder;
   @ViewChild('modal', { static: false })
   modal: ModalComponent;

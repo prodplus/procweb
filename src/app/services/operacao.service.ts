@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { ProcDesc } from '../models/dto/proc-desc';
 import { ProcessoDto } from '../models/dto/processo-dto';
 
 const URL = environment.url + '/operacoes';
@@ -24,5 +25,9 @@ export class OperacaoService {
 
   porAudiencia(): Observable<ProcessoDto[]> {
     return this.http.get<ProcessoDto[]>(`${URL}/audiencia`);
+  }
+
+  porAudienciaDesc(): Observable<ProcDesc[]> {
+    return this.http.get<ProcDesc[]>(`${URL}/audiencia_desc`);
   }
 }
