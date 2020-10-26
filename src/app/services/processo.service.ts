@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { FornecedorNro } from '../models/auxiliares/fornecedor-nro';
 import { Page } from '../models/auxiliares/page';
 import { ProcessoDto } from '../models/dto/processo-dto';
 import { ProcessoForm } from '../models/form/processo-form';
@@ -76,5 +77,9 @@ export class ProcessoService {
 
   getAutos(data: string): Observable<{ nro: string }> {
     return this.http.get<{ nro: string }>(`${URL}/autos/${data}`);
+  }
+
+  ranking(ano: number): Observable<FornecedorNro[]> {
+    return this.http.get<FornecedorNro[]>(`${URL}/ranking/${ano}`);
   }
 }

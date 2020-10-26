@@ -1,0 +1,37 @@
+<app-spinner *ngIf="isLoading"></app-spinner>
+<div class="container mt-4 mb-lg-5" *ngIf="!isLoading">
+  <app-titulo texto="Ranking de Reclamações"></app-titulo>
+  <div class="text-center mb-4">
+    <app-botao-home></app-botao-home>
+  </div>
+
+  <form [formGroup]="anoForm">
+    <div class="form-group col-4">
+      <label for="inputSearch">Ano:</label>
+      <select id="inputSearch" class="form-control" formControlName="input">
+        <option [ngValue]="null">vazio</option>
+        <option *ngFor="let ano of anos" [value]="ano">{{ ano }}</option>
+      </select>
+    </div>
+  </form>
+
+  <google-chart [title]="title" [type]="type" [data]="data" [columns]="columnNames"
+      [options]="options" [width]="width" [height]="height">
+  </google-chart>
+
+  <table class="table table-sm table-striped table-hover table-bordered">
+    <caption>Total: {{ ranking?.length }}</caption>
+    <thead class="thead-dark">
+      <th class="text-center align-middle">Fornecedor</th>
+      <th class="text-center align-middle">Processos</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let proc of ranking">
+        <td class="text-center align-middle">{{ proc.fornecedor.razaoSocial }}</td>
+        <td class="text-center align-middle">{{ proc.processos }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<app-modal #modal></app-modal>

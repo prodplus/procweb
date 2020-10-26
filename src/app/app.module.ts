@@ -13,6 +13,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgxViacepModule } from '@brunoc/ngx-viacep';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { GoogleChartsModule } from 'angular-google-charts';
 import { NgxMaskModule } from 'ngx-mask';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -39,6 +40,7 @@ registerLocaleData(localPt);
     NgbModule,
     CoreModule,
     SharedModule,
+    GoogleChartsModule,
   ],
   providers: [
     { provide: APP_BASE_HREF, useValue: '/' },

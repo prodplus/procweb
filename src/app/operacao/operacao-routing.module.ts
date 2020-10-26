@@ -11,6 +11,7 @@ import { PorNotConsumidorComponent } from './consumidor/por-not-consumidor/por-n
 import { NotFornecedorComponent } from './fornecedor/not-fornecedor/not-fornecedor.component';
 import { PorNotFornecedorComponent } from './fornecedor/por-not-fornecedor/por-not-fornecedor.component';
 import { PorPrazoComponent } from './prazo/por-prazo/por-prazo.component';
+import { RankingComponent } from './ranking/ranking.component';
 
 export const routes: Routes = [
   {
@@ -64,6 +65,11 @@ export const routes: Routes = [
             resolve: { processos: AudienciaResolver },
           },
         ],
+      },
+      {
+        path: 'ranking',
+        canActivate: [AuthGuard],
+        children: [{ path: '', component: RankingComponent }],
       },
     ],
   },
