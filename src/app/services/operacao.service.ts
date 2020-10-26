@@ -30,4 +30,12 @@ export class OperacaoService {
   porAudienciaDesc(): Observable<ProcDesc[]> {
     return this.http.get<ProcDesc[]>(`${URL}/audiencia_desc`);
   }
+
+  porNovos(): Observable<ProcessoDto[]> {
+    return this.http.get<ProcessoDto[]>(`${URL}/novos`);
+  }
+
+  porAutosNovos(autos: string): Observable<ProcessoDto[]> {
+    return this.http.post<ProcessoDto[]>(`${URL}/por_autos`, autos);
+  }
 }

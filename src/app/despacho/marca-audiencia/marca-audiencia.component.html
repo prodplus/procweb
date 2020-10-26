@@ -1,0 +1,43 @@
+<app-spinner *ngIf="isLoading"></app-spinner>
+<div class="container mt-4 mb-lg-5" *ngIf="!isLoading">
+  <app-titulo texto="Marcar Audiência"></app-titulo>
+  <app-botao-cancelar [rota]="['/despacho/novos']"></app-botao-cancelar>
+
+  <div class="card">
+    <div class="card-header">
+      <h4 class="text-center text-dark">
+        Processo: {{ processo.autos }}
+      </h4>
+      <h4 class="text-center text-dark">Consumidor(es):</h4>
+      <h5 *ngFor="let cons of processo.consumidores" class="text-center text-info">
+        {{ cons.denominacao }}
+      </h5>
+      <h4 class="text-center text-dark">Fornecedor(es):</h4>
+      <h5 *ngFor="let forn of processo.fornecedores" class="text-center text-info">
+        {{ forn.razaoSocial }}
+      </h5>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="movimentoForm" (submit)="preparaDespacho()">
+        <div class="row col-12">
+          <div class="form-group col-4">
+            <label for="inputData">Data:</label>
+            <input type="date" id="inputData" class="form-control" formControlName="data"
+                style="text-align: right;">
+          </div>
+          <div class="form-group col-3">
+            <label for="inputHora">Hora:</label>
+            <input type="time" id="inputHora" class="form-control" formControlName="hora"
+                style="text-align: center;">
+          </div>
+        </div>
+        <button type="submit" class="btn btn-block btn-lg btn-success"
+            [disabled]="movimentoForm.invalid">
+          <fa-icon [icon]="iPrint"></fa-icon>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<app-modal #modal (sim)="concordou($event)"></app-modal>

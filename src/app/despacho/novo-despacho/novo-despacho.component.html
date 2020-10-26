@@ -1,0 +1,58 @@
+<app-spinner *ngIf="isLoading"></app-spinner>
+<div class="container mt-4 mb-lg-5" *ngIf="!isLoading">
+  <app-titulo texto="Despachos Novos"></app-titulo>
+  <div class="text-center mb-4">
+    <app-botao-home></app-botao-home>
+  </div>
+
+  <div class="col-4">
+    <app-search-input [form]="formSearch" label="buscar por autos">
+    </app-search-input>
+  </div>
+  <table class="table table-sm table-hover table-striped table-bordered">
+    <caption *ngIf="processos.length == 0">nenhum processo para despachar...</caption>
+    <thead class="thead-dark">
+      <th class="text-center">Autos</th>
+      <th class="text-center">Consumidor(es)</th>
+      <th class="text-center">Fornecedor(es)</th>
+      <th class="text-center" style="width: 60px;">aud</th>
+      <th class="text-center" style="width: 60px;">ofi</th>
+      <th class="text-center" style="width: 60px;">edt</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let processo of processos">
+        <td class="text-center align-middle">{{ processo.autos }}</td>
+        <td class="text-center align-middle">
+          <div *ngFor="let cons of processo.consumidores">
+            {{ cons }}
+          </div>
+        </td>
+        <td class="text-center align-middle">
+          <div *ngFor="let forn of processo.fornecedores">
+            {{ forn }}
+          </div>
+        </td>
+        <td class="text-center align-middle">
+          <button class="btn btn-sm btn-warning" title="despacho de audiência"
+              [routerLink]="['/despacho/audiencias', processo.id]">
+            <fa-icon [icon]="iPrint"></fa-icon>
+          </button>
+        </td>
+        <td class="text-center align-middle">
+          <button class="btn btn-sm btn-primary" title="despacho de ofício"
+              (click)="preparaImprimir(processo.id)">
+            <fa-icon [icon]="iPrint"></fa-icon>
+          </button>
+        </td>
+        <td class="text-center align-middle">
+          <button class="btn btn-sm btn-success" title="ver processo"
+              [routerLink]="['/cadastro/processos/novo', processo.id]">
+            <fa-icon [icon]="iFolder"></fa-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<app-modal #modal (sim)="concordou($event)"></app-modal>
