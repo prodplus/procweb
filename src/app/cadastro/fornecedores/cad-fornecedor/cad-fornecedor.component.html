@@ -7,7 +7,7 @@
   </app-botao-cancelar>
   <div class="text-center mb-4">
     <button class="btn botao-cabecalho btn-danger" title="cancelar cadastro"
-        (click)="cancelarExterno()">
+        (click)="cancelarExterno()" *ngIf="idExterno">
       <fa-icon [icon]="iWindowClose"></fa-icon>
     </button>
   </div>

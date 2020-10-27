@@ -58,12 +58,7 @@ export class CadFornecedorComponent implements OnInit, AfterViewInit {
     });
 
     this.route.paramMap.subscribe((values) => {
-      if (values.get('id')) {
-        const forn: Fornecedor = this.route.snapshot.data['fornecedor'];
-        this.fones = forn?.fones;
-        this.idFornecedor = forn.id;
-        this.carregaForm(forn);
-      } else if (this.idExterno) {
+      if (this.idExterno) {
         this.isLoading = true;
         this.fornecedorService.buscar(this.idExterno).subscribe(
           (c) => this.carregaForm(c),
@@ -76,6 +71,11 @@ export class CadFornecedorComponent implements OnInit, AfterViewInit {
             this.idFornecedor = this.idExterno;
           }
         );
+      } else if (values.get('id')) {
+        const forn: Fornecedor = this.route.snapshot.data['fornecedor'];
+        this.fones = forn?.fones;
+        this.idFornecedor = forn.id;
+        this.carregaForm(forn);
       } else if (this.idExterno == 0) {
         this.idExterno = 1;
         this.fones = [];
@@ -83,6 +83,7 @@ export class CadFornecedorComponent implements OnInit, AfterViewInit {
       } else {
         this.fones = [];
         this.idFornecedor = null;
+        this.idExterno = null;
       }
     });
   }

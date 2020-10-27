@@ -71,12 +71,7 @@ export class CadConsumidorComponent implements OnInit, AfterViewInit {
     });
 
     this.route.paramMap.subscribe((values) => {
-      if (values.get('id')) {
-        const cons: Consumidor = this.route.snapshot.data['consumidor'];
-        this.fones = cons.fones;
-        this.idConsumidor = cons.id;
-        this.carregaForm(cons);
-      } else if (this.idExterno) {
+      if (this.idExterno) {
         this.isLoading = true;
         this.consumidorService.buscar(this.idExterno).subscribe(
           (c) => this.carregaForm(c),
@@ -89,6 +84,11 @@ export class CadConsumidorComponent implements OnInit, AfterViewInit {
             this.idConsumidor = this.idExterno;
           }
         );
+      } else if (values.get('id')) {
+        const cons: Consumidor = this.route.snapshot.data['consumidor'];
+        this.fones = cons.fones;
+        this.idConsumidor = cons.id;
+        this.carregaForm(cons);
       } else if (this.idExterno == 0) {
         this.idExterno = 1;
         this.fones = [];
@@ -96,6 +96,7 @@ export class CadConsumidorComponent implements OnInit, AfterViewInit {
       } else {
         this.fones = [];
         this.idConsumidor = null;
+        this.idExterno = null;
       }
     });
   }

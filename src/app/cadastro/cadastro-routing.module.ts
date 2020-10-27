@@ -73,6 +73,7 @@ export const routes: Routes = [
       },
       {
         path: 'fornecedores',
+        canActivate: [AuthGuard],
         children: [
           {
             path: '',
@@ -94,6 +95,7 @@ export const routes: Routes = [
       },
       {
         path: 'processos',
+        canActivate: [AuthGuard],
         children: [
           {
             path: '',
@@ -115,6 +117,7 @@ export const routes: Routes = [
       },
       {
         path: 'atendimentos',
+        canActivate: [AuthGuard],
         children: [
           {
             path: '',
