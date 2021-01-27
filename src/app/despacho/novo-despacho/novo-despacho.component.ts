@@ -3,10 +3,11 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { faFolder, faPrint } from '@fortawesome/free-solid-svg-icons';
 import { debounceTime } from 'rxjs/operators';
+import { Page } from 'src/app/models/auxiliares/page';
 import { RespModal } from 'src/app/models/auxiliares/resp-modal';
 import { ProcessoDto } from 'src/app/models/dto/processo-dto';
 import { DocumentoService } from 'src/app/services/documento.service';
-import { OperacaoService } from 'src/app/services/operacao.service';
+import { ProcessoService } from 'src/app/services/processo.service';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
 import { impressaoUtils } from 'src/app/utils/impressao.utils';
 import { mensagemPadrao } from 'src/app/utils/mensagem.utils';
@@ -18,7 +19,7 @@ import { mensagemPadrao } from 'src/app/utils/mensagem.utils';
 })
 export class NovoDespachoComponent implements OnInit, AfterViewInit {
   isLoading = false;
-  processos: ProcessoDto[];
+  processos: Page<ProcessoDto>;
   idProcesso: number;
   iFolder = faFolder;
   iPrint = faPrint;
@@ -30,7 +31,7 @@ export class NovoDespachoComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private docService: DocumentoService,
     private builder: FormBuilder,
-    private operacaoService: OperacaoService
+    private processoService: ProcessoService
   ) {}
 
   ngOnInit(): void {
@@ -47,10 +48,9 @@ export class NovoDespachoComponent implements OnInit, AfterViewInit {
       .valueChanges.pipe(debounceTime(300))
       .subscribe((value) => {
         if (value && value.length > 0) {
-          this.operacaoService.porAutosNovos(value).subscribe(
-            (p) => (this.processos = p),
-            (err) => this.modal.openPadrao(err)
-          );
+          this.processoService
+            .listarPorAutos(value, 0, 20)
+            .subscribe((p) => (this.processos = p));
         } else {
           this.recarregar();
         }
@@ -58,14 +58,16 @@ export class NovoDespachoComponent implements OnInit, AfterViewInit {
   }
 
   private recarregar() {
-    this.operacaoService.porNovos().subscribe(
-      (p) => (this.processos = p),
-      (err) => {
-        this.isLoading = false;
-        this.modal.openPadrao(err);
-      },
-      () => (this.isLoading = false)
-    );
+    this.processoService
+      .listarPorSituacao2('AUTUADO', 'CONCLUSO', 0, 20)
+      .subscribe(
+        (p) => (this.processos = p),
+        (err) => {
+          this.isLoading = false;
+          this.modal.openPadrao(err);
+        },
+        () => (this.isLoading = false)
+      );
   }
 
   preparaImprimir(id: number) {

@@ -10,7 +10,7 @@
     </app-search-input>
   </div>
   <table class="table table-sm table-hover table-striped table-bordered">
-    <caption *ngIf="processos.length == 0">nenhum processo para despachar...</caption>
+    <caption *ngIf="processos.content.length == 0">nenhum processo para despachar...</caption>
     <thead class="thead-dark">
       <th class="text-center">Autos</th>
       <th class="text-center">Consumidor(es)</th>
@@ -20,7 +20,7 @@
       <th class="text-center" style="width: 60px;">edt</th>
     </thead>
     <tbody>
-      <tr *ngFor="let processo of processos">
+      <tr *ngFor="let processo of processos.content">
         <td class="text-center align-middle">{{ processo.autos }}</td>
         <td class="text-center align-middle">
           <div *ngFor="let cons of processo.consumidores">

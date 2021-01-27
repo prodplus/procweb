@@ -71,6 +71,30 @@ export class ProcessoService {
     );
   }
 
+  listarPorSituacao2(
+    situacao: string,
+    situacao2: string,
+    pagina: number,
+    quant: number
+  ): Observable<Page<ProcessoDto>> {
+    return this.http.get<Page<ProcessoDto>>(
+      `${URL}/porsituacao/${pagina}/${quant}/${situacao}/${situacao2}`
+    );
+  }
+
+  listarPorSituacao3(
+    situacao: string,
+    situacao2: string,
+    autos: string,
+    pagina: number,
+    quant: number
+  ): Observable<Page<ProcessoDto>> {
+    return this.http.put<Page<ProcessoDto>>(
+      `${URL}/porsituacao/${pagina}/${quant}/${situacao}/${situacao2}`,
+      autos
+    );
+  }
+
   excluir(id: number): Observable<any> {
     return this.http.delete(`${URL}/${id}`);
   }
