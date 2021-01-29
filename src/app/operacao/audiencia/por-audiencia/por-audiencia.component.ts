@@ -18,6 +18,7 @@ export class PorAudienciaComponent implements OnInit {
   processos: ProcDesc[];
   iFolder = faFolder;
   iPrint = faPrint;
+  rowClass: string;
   @ViewChild('modal', { static: false })
   modal: ModalComponent;
 
@@ -73,5 +74,23 @@ export class PorAudienciaComponent implements OnInit {
         );
       }
     );
+  }
+
+  getRowClass(i: number): string {
+    if (i == 0) {
+      this.rowClass = 'table-danger';
+      return this.rowClass;
+    } else {
+      const data1 = this.processos[i - 1].descricao.substring(0, 4);
+      const data2 = this.processos[i].descricao.substring(0, 4);
+      if (data1 !== data2) {
+        if (this.rowClass === 'table-danger') {
+          this.rowClass = 'table-warning';
+        } else {
+          this.rowClass = 'table-danger';
+        }
+      }
+      return this.rowClass;
+    }
   }
 }

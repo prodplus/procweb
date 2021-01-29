@@ -21,6 +21,7 @@ export class NovoDespachoComponent implements OnInit, AfterViewInit {
   isLoading = false;
   processos: Page<ProcessoDto>;
   idProcesso: number;
+  pagina = 1;
   iFolder = faFolder;
   iPrint = faPrint;
   formSearch: FormGroup;
@@ -57,9 +58,14 @@ export class NovoDespachoComponent implements OnInit, AfterViewInit {
       });
   }
 
+  mudaPagina(pagina: number) {
+    this.pagina = pagina;
+    this.recarregar();
+  }
+
   private recarregar() {
     this.processoService
-      .listarPorSituacao2('AUTUADO', 'CONCLUSO', 0, 20)
+      .listarPorSituacao2('AUTUADO', 'CONCLUSO', this.pagina - 1, 20)
       .subscribe(
         (p) => (this.processos = p),
         (err) => {

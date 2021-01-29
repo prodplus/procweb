@@ -19,14 +19,14 @@
       <th class="text-center" style="width: 60px;">for</th>
     </thead>
     <tbody>
-      <tr *ngFor="let proc of processos">
+      <tr *ngFor="let proc of processos; index as i;" [ngClass]="getRowClass(i)">
         <td class="text-center align-middle">{{ proc.processo.autos }}</td>
         <td class="text-center align-middle">
           <div *ngFor="let cons of proc.processo.consumidores">
             {{ cons }}
           </div>
         </td>
-        <td class="text-center align-middle">
+        <td class="text-center alignr-middle">
           <div *ngFor="let forn of proc.processo.fornecedores">
             {{ forn }}
           </div>

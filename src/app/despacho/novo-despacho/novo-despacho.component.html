@@ -9,6 +9,9 @@
     <app-search-input [form]="formSearch" label="buscar por autos">
     </app-search-input>
   </div>
+  <app-paginador [pagina]="pagina" (mudaPagina)="mudaPagina($event)"
+      [tamanhoTotal]="processos.totalElements" [tamanhoPagina]="processos.size">
+  </app-paginador>
   <table class="table table-sm table-hover table-striped table-bordered">
     <caption *ngIf="processos.content.length == 0">nenhum processo para despachar...</caption>
     <thead class="thead-dark">
