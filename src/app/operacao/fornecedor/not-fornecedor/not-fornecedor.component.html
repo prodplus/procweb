@@ -30,7 +30,7 @@
           <th class="text-center" style="width: 60px;">05</th>
           <th class="text-center" style="width: 60px;">imp</th>
           <th class="text-center" style="width: 60px;">mul</th>
-          <th class="text-center" style="width: 60px;">ini</th>
+          <th class="text-center" style="width: 60px;">ofi</th>
         </thead>
         <tbody>
           <tr *ngFor="let forn of processo.fornecedores">
@@ -65,8 +65,8 @@
               </button>
             </td>
             <td class="text-center align-middle">
-              <button class="btn btn-sm btn-success" title="inicial"
-                  type="button" (click)="inicial()">
+              <button class="btn btn-sm btn-success" title="ofício"
+                  type="button" (click)="oficio()">
                 <fa-icon [icon]="iPrint"></fa-icon>
               </button>
             </td>

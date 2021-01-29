@@ -87,6 +87,18 @@ export class NotFornecedorComponent implements OnInit {
     );
   }
 
+  oficio() {
+    this.isLoading = true;
+    this.docService.oficio(this.processo.id).subscribe(
+      (x) => impressaoUtils(x, this.processo.id, 'of_'),
+      (err) => {
+        this.modal.openPadrao(err);
+        this.isLoading = false;
+      },
+      () => (this.isLoading = false)
+    );
+  }
+
   getMascaraCadastro(tipo: string): string {
     if (tipo === 'FISICA') {
       return '000.000.000-00';

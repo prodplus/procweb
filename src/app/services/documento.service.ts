@@ -70,6 +70,10 @@ export class DocumentoService {
     });
   }
 
+  oficio(idProc: number): Observable<Blob> {
+    return this.http.get(`${URL}/oficio/${idProc}`, { responseType: 'blob' });
+  }
+
   atendimento(idAte: number): Observable<Blob> {
     return this.http.get(`${URL}/atendimento/${idAte}`, {
       responseType: 'blob',
