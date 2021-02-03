@@ -69,7 +69,12 @@
             </thead>
             <tbody>
               <tr *ngFor="let cons of processo.consumidores; index as i;">
-                <td class="align-middle">{{ cons.denominacao }}</td>
+                <td class="align-middle">
+                  <a [routerLink]="['/cadastro/consumidores/novo', cons.id]"
+                      style="cursor: pointer;">
+                    {{ cons.denominacao }}
+                  </a>
+                </td>
                 <td class="text-right align-middle">
                   {{ cons.cadastro | mask: getMascaraCadastro(cons.tipo) }}
                 </td>
@@ -162,9 +167,17 @@
             </thead>
             <tbody>
               <tr *ngFor="let forn of processo.fornecedores; index as i;">
-                <td class="align-middle">{{ forn.fantasia }}</td>
+                <td class="align-middle">
+                  <a [routerLink]="['/cadastro/fornecedores/novo', forn.id]"
+                      style="cursor: pointer;">
+                    {{ forn.fantasia }}
+                  </a>
+                </td>
                 <td class="text-center align-middle">
-                  {{ forn.razaoSocial }}
+                  <a [routerLink]="['/cadastro/fornecedores/novo', forn.id]"
+                      style="cursor: pointer;">
+                    {{ forn.razaoSocial }}
+                  </a>
                 </td>
                 <td class="text-center align-middle">
                   <button class="btn btn-sm btn-danger" type="button"
