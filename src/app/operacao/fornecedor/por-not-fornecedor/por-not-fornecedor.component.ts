@@ -85,7 +85,7 @@ export class PorNotFornecedorComponent implements OnInit {
       toDateApi(dataPrazo),
       null
     );
-    processo.movimentacao.push(movimento);
+    processo.movimentacao.unshift(movimento);
     const processoForm: ProcessoForm = new ProcessoForm(
       processo.id,
       processo.tipo,
