@@ -76,11 +76,11 @@ export class PorNotFornecedorComponent implements OnInit {
   private concluir(processo: Processo) {
     this.isLoading = true;
     const dataPrazo = new Date();
-    dataPrazo.setDate(dataPrazo.getDate() + 10);
+    dataPrazo.setDate(dataPrazo.getDate() + 32);
     const movimento = new Movimento(
       toDateApi(new Date()),
       'NOTIFICAR_FORNECEDOR',
-      'GERAL',
+      'AGUARDA_AR_FORN',
       'Aguarda AR fornecedor',
       toDateApi(dataPrazo),
       null

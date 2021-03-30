@@ -219,8 +219,6 @@ export class ListaProcessosComponent implements OnInit, AfterViewInit {
 
   getRowClass(processo: ProcessoDto): string {
     switch (processo.situacao) {
-      case 'GERAL':
-        return 'table-light';
       case 'AUTUADO':
         return 'table-info';
       case 'CONCLUSO':
@@ -228,17 +226,16 @@ export class ListaProcessosComponent implements OnInit, AfterViewInit {
       case 'AUDIENCIA':
         return 'table-warning';
       case 'NOTIFICAR_FORNECEDOR':
-        return 'table-danger';
       case 'NOTIFICAR_CONSUMIDOR':
+      case 'PRAZO':
+      case 'PRAZO_CONSUMIDOR':
+      case 'PRAZO_FORNECEDOR':
         return 'table-danger';
       case 'ENCERRADO':
-        return 'table-secondary';
       case 'RESOLVIDO':
-        return 'table-secondary';
       case 'NAO_RESOLVIDO':
+      case 'INSUBSISTENTE':
         return 'table-secondary';
-      case 'PRAZO':
-        return 'table-danger';
       default:
         return 'table-light';
     }

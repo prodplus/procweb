@@ -8,10 +8,7 @@ import {
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faCog, faMinus } from '@fortawesome/free-solid-svg-icons';
-import {
-  Movimento,
-  ordenaMovimentos,
-} from 'src/app/models/auxiliares/movimento';
+import { Movimento } from 'src/app/models/auxiliares/movimento';
 import { Consumidor } from 'src/app/models/consumidor';
 import { ProcessoForm } from 'src/app/models/form/processo-form';
 import { Fornecedor } from 'src/app/models/fornecedor';
@@ -354,8 +351,7 @@ export class CadProcessoComponent implements OnInit, AfterViewInit {
 
   registraMovimento(mov: Movimento) {
     if (mov) {
-      this.processo.movimentacao.push(mov);
-      this.processo.movimentacao = ordenaMovimentos(this.processo.movimentacao);
+      this.processo.movimentacao.unshift(mov);
     }
     this.lancandoMov = false;
   }
